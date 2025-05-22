@@ -9,7 +9,7 @@ export class JwtAdapter  {
 
         return new Promise((resolve) => {
 
-            jwt.sign(payload, "SEED", {expiresIn: duration} as SignOptions, (err, token) => {
+            jwt.sign(payload, JWT_SEED, {expiresIn: duration} as SignOptions, (err, token) => {
                 
                 if(err) return resolve(null);
 
@@ -21,8 +21,13 @@ export class JwtAdapter  {
     }
 
     static validateToken(token: string){
-        throw new Error('Method not implemented.');
-        return ;
+        return new Promise((resolve) => {
+
+            jwt.verify(token, JWT_SEED, (err, decoded) => {
+                if(err) return resolve(null);
+                resolve(decoded);
+            });
+        });
     }
     
 };

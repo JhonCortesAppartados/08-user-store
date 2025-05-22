@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Name is required'],
         unique: true,
     },
-    emailvalidated: {
+    emailValidated: {
         type: Boolean,
         default: false,
     },

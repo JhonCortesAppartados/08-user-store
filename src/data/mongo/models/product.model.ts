@@ -1,4 +1,6 @@
+import { trace } from "console";
 import mongoose, { Schema } from "mongoose";
+import { version } from "os";
 
 
 const productSchema = new mongoose.Schema({
@@ -29,5 +31,16 @@ const productSchema = new mongoose.Schema({
         required: true
     },
 });
+
+//Esto es para poder serializar la informacion, es como decirle a la DB como mostrar la informacion:
+productSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function(doc, ret, options){
+        delete ret._id;
+    },
+})
+
+
 
 export const ProductModel = mongoose.model('Product', productSchema);

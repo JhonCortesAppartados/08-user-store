@@ -18,4 +18,13 @@ const categorySchema = new mongoose.Schema({
     }
 });
 
+//Esto es para poder serializar la informacion, es como decirle a la DB como mostrar la informacion:
+categorySchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function(doc, ret, options){
+        delete ret._id;
+    },
+})
+
 export const CategoryModel = mongoose.model('Category', categorySchema);

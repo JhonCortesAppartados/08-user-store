@@ -29,4 +29,19 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+
+//Esto es para poder serializar la informacion, es como decirle a la DB como mostrar la informacion:
+userSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function(doc, ret, options){
+        delete ret._id;
+        delete ret.password;
+        delete ret.__v;
+        delete ret.emailValidated;
+        delete ret.role;
+    },
+})
+
+
 export const UserModel = mongoose.model('User', userSchema);

@@ -18,4 +18,11 @@ export class MongoDatabase {
             throw error;
         }
     }
+
+    //*Esto es el metodo para cerrar la conexion con la DB:
+    static async disconnect(){
+        await mongoose.disconnect();
+    }
+
+
 }

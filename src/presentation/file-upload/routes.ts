@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { FileUploadController } from "./controller";
 import { FileUploadService } from "../services/file-upload.service";
+import { FileUploadMiddleware } from "../middlewares/file-upload.middlewares";
 
 
 
@@ -14,6 +15,10 @@ export class FileUploadRoutes {
             new FileUploadService(),
         );
         
+        
+        router.use(FileUploadMiddleware.containFiles);
+
+
         // Definir las rutas:
         //Se establecera para poder subir los diferentes archivos:
         // api/upload/single/<user|category|product>/

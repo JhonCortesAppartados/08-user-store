@@ -28,12 +28,18 @@ export class FileUploadController {
         if(!validTypes.includes(type)){
             return res.status(400).json({error: `Invalid type: ${type}, valid ones ${validTypes}`});
         }
+        
+        //*Se movio para el middleware:
+        // if(!req.files || Object.keys(req.files).length === 0){
+        //     return res.status(400).json({error: 'No files were selected'})
+        // }
 
-        if(!req.files || Object.keys(req.files).length === 0){
-            return res.status(400).json({error: 'No files were selected'})
-        }
+        //Como ya se esta tomando los valores de la peticion, no es indefinido o nulo, y ya no se guarda en los files si no en el body:
+        // const file = req.files.file as UploadedFile;
 
-        const file = req.files.file as UploadedFile;
+        //Se toma el primer archivo que se subio:
+        const file = req.body.files.at(0) as UploadedFile;
+
 
         this.fileUploadService.uploadSingle(file, `uploads/${type}`)
             .then(uploaded => res.json(uploaded))

@@ -22,12 +22,14 @@ export class FileUploadController {
         //El tipo de subdirectorio que se va a crear:
         const type = req.params.type;
 
+        /*
+        //*Se movio para el middleware:
         //para validar los tipos de subdirectorio:
         const validTypes = ['users', 'products', 'categories'];
 
         if(!validTypes.includes(type)){
             return res.status(400).json({error: `Invalid type: ${type}, valid ones ${validTypes}`});
-        }
+        }*/
         
         //*Se movio para el middleware:
         // if(!req.files || Object.keys(req.files).length === 0){
@@ -48,7 +50,21 @@ export class FileUploadController {
 
     uploadMultipleFiles = (req: Request, res: Response) => {
 
-        res.json('uploadMultipleFiles');
+        const type = req.params.type;
+        /*
+        //*Se movio para el middleware:
+        //para validar los tipos de subdirectorio:
+        const validTypes = ['users', 'products', 'categories'];
+        if(!validTypes.includes(type)){
+            return res.status(400).json({error: `Invalid type: ${type}, valid ones ${validTypes}`});
+        }
+        */
+       
+        const files = req.body.files as UploadedFile[];
+
+        this.fileUploadService.uploadMultiple(files, `uploads/${type}`)
+            .then(uploaded => res.json(uploaded))
+            .catch(error => this.handleError(error, res));
     };
 
 }

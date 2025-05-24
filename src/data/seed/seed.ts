@@ -13,6 +13,8 @@ import { seedData } from "./data";
     await main();
 
     await MongoDatabase.disconnect();
+
+    //*Antes de ejecutar el comando npm run seed, poner el () en la siguiente linea antes del ; y despues del }) para que se ejecute el script de seed:
 });
 
 //Esta funciones para poder generar numero aleatorios, dependiendo del rango que queremos:
